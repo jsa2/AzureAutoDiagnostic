@@ -104,6 +104,8 @@ Requirement | description | Install
 The CLI script below will use current subscription context to setup the solution after user has performed 
 ``` AZ LOGIN; az account set --subscription {subscriptionID} ``` 
 ```shell
+# clone the project
+git clone https://github.com/jsa2/AzureAutoDiagnostic; cd AzureAutoDiagnostic
 # Install the node project
 npm install
 #Define starting variables
@@ -179,6 +181,8 @@ az functionapp create \
 --runtime node \
 --storage-account $storageAcc
 
+sleep 10
+
 # Scope for web app
 scope=$(echo $wsid | cut -d "/" -f1,2,3)
 # Enable Managed Identity and required permissions for key vault and monitor
@@ -188,6 +192,8 @@ sleep 20
 
 #Set kv permissions for KV references
 az keyvault set-policy --name $kvName --object-id $identity --secret-permissions get -g $rg
+
+sleep 20
 
 ## Enables KV REF and Disables the MSI endpoint for testing that function can get access tokens (Enable for debugging)
 az functionapp config appsettings set \
