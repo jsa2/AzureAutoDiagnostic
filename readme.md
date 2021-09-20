@@ -124,8 +124,8 @@ rg=RG-ehsolution-$rnd
 location=westeurope
 # You can ignore the warning "command substitution: ignored null byte in input"
 storageAcc=storage$(shuf -zer -n10  {a..z})
-#
-kvName=kv-autodiag2$rnd
+# KV with random name
+kvName=kv-autodiag2$rnd-$RANDOM
 
 # Create Resource Group
 az group create -n $rg \
