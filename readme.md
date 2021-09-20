@@ -102,6 +102,9 @@ Requirement | description | Install
 
 ### CLI script
 The CLI script below will use current subscription context to setup the solution after user has performed 
+
+Ensure you have selected a single subscription context
+
 ``` AZ LOGIN; az account set --subscription {subscriptionID} ``` 
 ```shell
 # clone the project
