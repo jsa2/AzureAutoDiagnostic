@@ -23,12 +23,35 @@ After deployment is created:
 
 2. approx 15 mins since the key vault was created you should see the following diagnostic setting enabled
 
-## Notes
+## Debugging
 - When the function is starting, you might see some transient errors in the logs. These errors seem to be related to propagation delay for some of the resources in scope. Sometimes the managed identity is unable to receive tokens immediately after deployment
 
 **No triggers?**
 - As always, you might see a situation with functions where the triggers are not getting synced. At this point you can try to restart the function from the portal, or just delete the resource-group, and deploy it again.
 ![img](https://securecloud188323504.files.wordpress.com/2021/09/image-39.png)
+
+**Tracing errors**
+
+
+
+Use the appInsights created in the resource group to trace errors. Look for messages in traces and exceptions.
+
+```
+traces
+| distinct message
+```
+
+```
+exceptions
+```
+
+![img](https://securecloud188323504.files.wordpress.com/2021/09/image-41.png)
+
+
+**1. Illegal connection string**
+- This signals, that the function does not have permission to the Key Vault. This can happen if there is propagation error with Key Vault Permissions
+`` Illegal connection string parameter name '@Microsoft.KeyVault(SecretUri' (Parameter 'connectionString') `` 
+
 ---
 
 
@@ -37,8 +60,7 @@ After deployment is created:
   - [Disclaimer](#disclaimer)
   - [Solution description](#solution-description)
   - [Confirming the solution works](#confirming-the-solution-works)
-  - [Notes](#notes)
-  - [!img](#)
+  - [Debugging](#debugging)
   - [Table of contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
