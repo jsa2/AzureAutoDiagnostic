@@ -14,17 +14,20 @@ This solution removes the requirement for creating individual policies resources
 After deployment is created: 
 1. confirm that both functions are visible in the portal 
    - If none of the functions are visible in the portal restart the function, this will force resync of the triggers
-2. Create new resource in the subscription the solution was deployed on, for example Azure Key Vault 
+
+![img](https://securecloud188323504.files.wordpress.com/2021/09/image-40.png)
+
+1. Create new resource in the subscription the solution was deployed on, for example Azure Key Vault 
    
    ``az keyvault create --location $location -g $rg  -n $kvName`` 
 
-3. approx 15 mins since the key vault was created you should see the following diagnostic setting enabled
+2. approx 15 mins since the key vault was created you should see the following diagnostic setting enabled
 
 ## Notes
 - When the function is starting, you might see some transient errors in the logs. These errors seem to be related to propagation delay for some of the resources in scope. Sometimes the managed identity is unable to receive tokens immediately after deployment
 
-No triggers
-- As always, you might see a situation with functions where the triggers are not getting synced. At this point you can try to restart the function from the portal, or just delete the resource-group, and delete it again.
+**No triggers?**
+- As always, you might see a situation with functions where the triggers are not getting synced. At this point you can try to restart the function from the portal, or just delete the resource-group, and deploy it again.
 ![img](https://securecloud188323504.files.wordpress.com/2021/09/image-39.png)
 ---
 
