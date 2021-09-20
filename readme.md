@@ -17,73 +17,20 @@ This solution removes the requirement for creating individual policies resources
 
 
 
-## Confirming the solution works
-After deployment is created: 
-1. confirm that both functions are visible in the portal 
-
-![img](https://securecloud188323504.files.wordpress.com/2021/09/image-40.png)
-
-   - If none of the functions are visible in the portal restart the function, this will force resync of the triggers. If that does not help delete the resource group, and redeploy the solution (remember to delete the diagnostic setting created by the automation manually)
-
-
-2. Create new resource in the **same subscription** the solution was deployed on, for example Azure Key Vault:
-   
-   ``az keyvault create --location $location -g $rg  -n $kvName`` 
-
-3. Approx 15 mins since resource was created you should see the following diagnostic setting enabled
-![img](https://securecloud188323504.files.wordpress.com/2021/09/image-43.png)
-
-
-## Notes
-- If you do not have all the solution providers registered for the solution the installation might fail.
-- If the installation fails, it is better to delete the resource group
-
-## Debugging
-- When the function is starting, you might see some transient errors in the logs. These errors seem to be related to propagation delay for some of the resources in scope. Sometimes the managed identity is unable to receive tokens immediately after deployment
-
-**No triggers?**
-- As always, you might see a situation with functions where the triggers are not getting synced. At this point you can try to restart the function from the portal, or just delete the resource-group, and deploy it again.
-![img](https://securecloud188323504.files.wordpress.com/2021/09/image-39.png)
-
-**Tracing errors**
-
-
-
-Use the appInsights created in the resource group to trace errors. Look for messages in traces and exceptions.
-
-```
-traces
-| distinct message
-```
-
-```
-exceptions
-```
-
-![img](https://securecloud188323504.files.wordpress.com/2021/09/image-41.png)
-
-
-**1. Illegal connection string**
-- This signals, that the function does not have permission to the Key Vault. This can happen if there is propagation error with Key Vault Permissions
-`` Illegal connection string parameter name '@Microsoft.KeyVault(SecretUri' (Parameter 'connectionString') `` 
-2. Propagation delay in AAD
-``WARNING: Retrying role assignment creation: 3/36``  
-
----
 
 
 ## Table of contents
 - [Azure Auto-diagnostic solution](#azure-auto-diagnostic-solution)
   - [Disclaimer](#disclaimer)
   - [Solution description](#solution-description)
-  - [Confirming the solution works](#confirming-the-solution-works)
-  - [Notes](#notes)
-  - [Debugging](#debugging)
   - [Table of contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
     - [CLI script](#cli-script)
   - [- Ensure that you have run ``` NVM Install 14```](#--ensure-that-you-have-run--nvm-install-14)
+  - [Confirming the solution works](#confirming-the-solution-works)
+  - [Notes](#notes)
+  - [Debugging](#debugging)
   - [License](#license)
 
 
@@ -249,6 +196,60 @@ az network public-ip create --location $location -g $rg  -n pip-$RANDOM
 az network lb create --location $location -g $rg  -n lb-$rnd
 az keyvault create --location $location -g $rg  -n ${kvName}1
 ```
+
+## Confirming the solution works
+After deployment is created: 
+1. confirm that both functions are visible in the portal 
+
+![img](https://securecloud188323504.files.wordpress.com/2021/09/image-40.png)
+
+   - If none of the functions are visible in the portal restart the function, this will force resync of the triggers. If that does not help delete the resource group, and redeploy the solution (remember to delete the diagnostic setting created by the automation manually)
+
+
+2. Create new resource in the **same subscription** the solution was deployed on, for example Azure Key Vault:
+   
+   ``az keyvault create --location $location -g $rg  -n $kvName`` 
+
+3. Approx 15 mins since resource was created you should see the following diagnostic setting enabled
+![img](https://securecloud188323504.files.wordpress.com/2021/09/image-43.png)
+
+
+## Notes
+- If you do not have all the solution providers registered for the solution the installation might fail.
+- If the installation fails, it is better to delete the resource group
+
+## Debugging
+- When the function is starting, you might see some transient errors in the logs. These errors seem to be related to propagation delay for some of the resources in scope. Sometimes the managed identity is unable to receive tokens immediately after deployment
+
+**No triggers?**
+- As always, you might see a situation with functions where the triggers are not getting synced. At this point you can try to restart the function from the portal, or just delete the resource-group, and deploy it again.
+![img](https://securecloud188323504.files.wordpress.com/2021/09/image-39.png)
+
+**Tracing errors**
+
+
+
+Use the appInsights created in the resource group to trace errors. Look for messages in traces and exceptions.
+
+```
+traces
+| distinct message
+```
+
+```
+exceptions
+```
+
+![img](https://securecloud188323504.files.wordpress.com/2021/09/image-41.png)
+
+
+**1. Illegal connection string**
+- This signals, that the function does not have permission to the Key Vault. This can happen if there is propagation error with Key Vault Permissions
+`` Illegal connection string parameter name '@Microsoft.KeyVault(SecretUri' (Parameter 'connectionString') `` 
+2. Propagation delay in AAD
+``WARNING: Retrying role assignment creation: 3/36``  
+
+---
 
 ## License
 Copyright 2021 Joosua Santasalo
