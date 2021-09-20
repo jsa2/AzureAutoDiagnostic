@@ -30,6 +30,9 @@ After deployment is created:
 2. approx 15 mins since the key vault was created you should see the following diagnostic setting enabled
 
 
+## Notes
+- If you do not have all the solution providers registered for the solution the installation might fail.
+- If the installation fails, it is better to delete the resource group
 
 ## Debugging
 - When the function is starting, you might see some transient errors in the logs. These errors seem to be related to propagation delay for some of the resources in scope. Sometimes the managed identity is unable to receive tokens immediately after deployment
@@ -70,6 +73,7 @@ exceptions
   - [Disclaimer](#disclaimer)
   - [Solution description](#solution-description)
   - [Confirming the solution works](#confirming-the-solution-works)
+  - [Notes](#notes)
   - [Debugging](#debugging)
   - [Table of contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
