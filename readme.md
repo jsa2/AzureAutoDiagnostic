@@ -63,7 +63,7 @@ The CLI script below will use current subscription context to setup the solution
 - Ensure you are running this script in Linux Shell (Bash)
 - Ensure you have selected a single subscription context
 
-``` AZ LOGIN; az account set --subscription "6193053b-408b-44d0-b20f-4e29b9b67394"``` 
+``` az login; az account set --subscription "6193053b-408b-44d0-b20f-4e29b9b67394"``` 
 
 - Ensure you have permissions on the WSL folder to create directories, and have permissions on those created directories ``chmod 700 /home/user``
    - If you cloned this project with windows client, it is recommended to clone it to Linux filesystem `` /home/user/projectName `` 
