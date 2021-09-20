@@ -161,7 +161,7 @@ identity=$(az functionapp identity assign -g  $rg  -n $fnName --role 749f88d5-cb
 sleep 20
 
 #Set kv permissions for KV references
-az keyvault set-policy --name $kvName --object-id $identity --secret-permissions get
+az keyvault set-policy --name $kvName --object-id $identity --secret-permissions get -g $rg
 
 ## Enables KV REF and Disables the MSI endpoint for testing that function can get access tokens (Enable for debugging)
 az functionapp config appsettings set \
