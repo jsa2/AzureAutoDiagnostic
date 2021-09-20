@@ -1,0 +1,13 @@
+{
+  "name": "fndiag",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "axios": "^0.21.4"
+  },
+  "devDependencies": {}
+}
