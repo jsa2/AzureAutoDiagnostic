@@ -1,7 +1,8 @@
 # Azure Auto-diagnostic solution
 
 ## Disclaimer
-Read [License](#license)
+Read [License](#license) before proceeding
+- Do not use this solution in any environment that has sensitive or valuable data. This is a technology demo meant for testing environments. 
 
 ## Solution description
 One of the top issues in detecting and investigation of security incidents (or suspicion of incident) is the fact that logs are often not simply enabled. 
@@ -19,15 +20,18 @@ This solution removes the requirement for creating individual policies resources
 ## Confirming the solution works
 After deployment is created: 
 1. confirm that both functions are visible in the portal 
-   - If none of the functions are visible in the portal restart the function, this will force resync of the triggers
 
 ![img](https://securecloud188323504.files.wordpress.com/2021/09/image-40.png)
 
-1. Create new resource in the subscription the solution was deployed on, for example Azure Key Vault 
+   - If none of the functions are visible in the portal restart the function, this will force resync of the triggers. If that does not help delete the resource group, and redeploy the solution (remember to delete the diagnostic setting created by the automation manually)
+
+
+2. Create new resource in the **same subscription** the solution was deployed on, for example Azure Key Vault:
    
    ``az keyvault create --location $location -g $rg  -n $kvName`` 
 
-2. approx 15 mins since the key vault was created you should see the following diagnostic setting enabled
+3. Approx 15 mins since resource was created you should see the following diagnostic setting enabled
+![img](https://securecloud188323504.files.wordpress.com/2021/09/image-43.png)
 
 
 ## Notes
@@ -79,6 +83,7 @@ exceptions
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
     - [CLI script](#cli-script)
+  - [- Ensure that you have run ``` NVM Install 14```](#--ensure-that-you-have-run--nvm-install-14)
   - [License](#license)
 
 
@@ -108,13 +113,14 @@ Requirement | description | Install
 
 ### CLI script
 The CLI script below will use current subscription context to setup the solution after user has performed 
-
+- Ensure you are running this script in Linux Shell (Bash)
 - Ensure you have selected a single subscription context
 
-``` AZ LOGIN; az account set --subscription {subscriptionID} ``` 
+``` AZ LOGIN; az account set --subscription "6193053b-408b-44d0-b20f-4e29b9b67394"``` 
 
 - Ensure you have permissions on the WSL folder to create directories, and have permissions on those created directories ``chmod 700 /home/user``
-
+   - If you cloned this project with windows client, it is recommended to clone it to Linux filesystem `` /home/user/projectName `` 
+- Ensure that you have run ``` NVM Install 14```
 --- 
 
 ```shell
