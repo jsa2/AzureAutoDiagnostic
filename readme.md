@@ -216,6 +216,7 @@ After deployment is created:
 
 ## Notes
 - If you do not have all the solution providers registered for the solution the installation might fail.
+- Keyvault registration is usually slow, register the provider before running the script, refer to the https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types to register provider for subscription.
 - If the installation fails, it is better to delete the resource group
 
 ## Debugging
