@@ -103,9 +103,14 @@ Requirement | description | Install
 ### CLI script
 The CLI script below will use current subscription context to setup the solution after user has performed 
 
-Ensure you have selected a single subscription context
+- Ensure you have selected a single subscription context
 
 ``` AZ LOGIN; az account set --subscription {subscriptionID} ``` 
+
+- Ensure you have permissions on the WSL folder to create directories, and have permissions on those created directories ``chmod 700 /home/user``
+
+--- 
+
 ```shell
 # clone the project
 git clone https://github.com/jsa2/AzureAutoDiagnostic; cd AzureAutoDiagnostic
