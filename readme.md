@@ -8,7 +8,7 @@ One of the top issues in detecting and investigation of security incidents (or s
 
 There are multiple ways to enable diagnostic logs in Azure: Built-in and recommended option is to use Azure Policy and to create individually diagnostic deployment for different resource types. 
 
-This solution removes the requirement for creating individual policies resources which supportes the [Diagnostic settings](https://docs.microsoft.com/en-us/rest/api/monitor/diagnostic-settings/create-or-update) API in Azure Resource Manager.
+This solution removes the requirement for creating individual policies resources which supports the [Diagnostic settings](https://docs.microsoft.com/en-us/rest/api/monitor/diagnostic-settings/create-or-update) API in Azure Resource Manager.
 
 ## Confirming the solution works
 After deployment is created: 
@@ -21,7 +21,13 @@ After deployment is created:
 3. approx 15 mins since the key vault was created you should see the following diagnostic setting enabled
 
 ## Notes
-- When the function is starting, you might see some transient errors in the logs. These errors seem to be related to propagation delay for some of the resources in scope. Sometimes the managed identity is unable to receive tokens immediatily after deployment
+- When the function is starting, you might see some transient errors in the logs. These errors seem to be related to propagation delay for some of the resources in scope. Sometimes the managed identity is unable to receive tokens immediately after deployment
+
+No triggers
+- As always, you might see a situation with functions where the triggers are not getting synced. At this point you can try to restart the function from the portal, or just delete the resource-group, and delete it again.
+![img](https://securecloud188323504.files.wordpress.com/2021/09/image-39.png)
+---
+
 
 ## Table of contents
 - [Azure Auto-diagnostic solution](#azure-auto-diagnostic-solution)
@@ -29,6 +35,7 @@ After deployment is created:
   - [Solution description](#solution-description)
   - [Confirming the solution works](#confirming-the-solution-works)
   - [Notes](#notes)
+  - [!img](#)
   - [Table of contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -172,8 +179,9 @@ sleep 10
 az functionapp restart --name $fnName --resource-group $rg 
 sleep 10
 fnTrues=$(az functionapp function show -g $rg -n $fnName --function-name ehdiag -o tsv --query "id")
+echo "$fnTrues"
 echo "attempting to sync triggers $C/$E"
- if [[ $i -eq 2 ]]; then
+ if [[ $i -eq 6 ]]; then
     break  
     fi
 done
