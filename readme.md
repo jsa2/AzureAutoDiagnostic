@@ -59,6 +59,8 @@ exceptions
 **1. Illegal connection string**
 - This signals, that the function does not have permission to the Key Vault. This can happen if there is propagation error with Key Vault Permissions
 `` Illegal connection string parameter name '@Microsoft.KeyVault(SecretUri' (Parameter 'connectionString') `` 
+2. Propagation delay in AAD
+``WARNING: Retrying role assignment creation: 3/36``  
 
 ---
 
