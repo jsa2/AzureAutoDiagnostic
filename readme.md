@@ -10,6 +10,12 @@ There are multiple ways to enable diagnostic logs in Azure: Built-in and recomme
 
 This solution removes the requirement for creating individual policies resources which supports the [Diagnostic settings](https://docs.microsoft.com/en-us/rest/api/monitor/diagnostic-settings/create-or-update) API in Azure Resource Manager.
 
+**Solution image**
+
+![img](https://securecloud188323504.files.wordpress.com/2021/09/image-38.png)
+
+
+
 ## Confirming the solution works
 After deployment is created: 
 1. confirm that both functions are visible in the portal 
@@ -22,6 +28,8 @@ After deployment is created:
    ``az keyvault create --location $location -g $rg  -n $kvName`` 
 
 2. approx 15 mins since the key vault was created you should see the following diagnostic setting enabled
+
+
 
 ## Debugging
 - When the function is starting, you might see some transient errors in the logs. These errors seem to be related to propagation delay for some of the resources in scope. Sometimes the managed identity is unable to receive tokens immediately after deployment
@@ -75,10 +83,6 @@ Service | Description
 |Azure Event Hub | Signals the function on new deployments
 |Azure Monitor | Source for the activityLog 
 |Azure Log Analytics | Destination for log export
-
-**Solution image**
-
-![img](https://securecloud188323504.files.wordpress.com/2021/09/image-38.png)
 
 
 
