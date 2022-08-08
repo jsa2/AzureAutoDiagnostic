@@ -91,7 +91,7 @@ az group create -n $rg \
 -l $location \
 --tags="svc=autoDiag"
 
-wsid=$(az monitor log-analytics workspace create --location $location -g $rg  -n laws${autodg}1 -o tsv --query "id")
+wsid="/subscriptions/3539c2a2-cd25-48c6-b295-14e59334ef1c/resourcegroups/rg-laws/providers/microsoft.operationalinsights/workspaces/hublaws"
 
 # Create storageAcc Account 
 az storage account create -n $storageAcc  -g $rg --kind storageV2 -l $location -t Account --sku Standard_LRS
@@ -117,18 +117,24 @@ saConstring=$(az storage account show-connection-string -g $rg  -n  $storageAcc 
 ## Create SUB
 sub=$(echo $wsid | cut -d "/" -f3);
 
-# Creates diagnostic setting for the subscription to be forwarded to EH
-az monitor diagnostic-settings subscription create -n diag-$rnd \
---event-hub-auth-rule $authRuleForDiagnosticSetting \
---location $location \
---subscription $sub \
---event-hub-name hub-${autodg} \
---logs '[
-   {
-     "category": "Administrative",
-     "enabled": true
-    }
-   ]'
+
+subs=$(az account list --query [].id -o tsv)
+
+for subbie in $subs
+   do
+   az account set --subscription $subbie
+   az monitor diagnostic-settings subscription create -n diag-$rnd \
+   --event-hub-auth-rule $authRuleForDiagnosticSetting \
+   --location $location \
+   --subscription $subbie \
+   --event-hub-name hub-${autodg} \
+   --logs '[
+      {
+      "category": "Administrative",
+      "enabled": true
+      }
+      ]'
+   done
 
 ## Deploy FN
 #kvRefEh=$(az keyvault secret set --name ehsecret --vault-name $kvName --value $ehConstring -o tsv --query "id"| cut -d "/" -f1,2,3,4,5)
@@ -155,10 +161,17 @@ scope=$(echo $wsid | cut -d "/" -f1,2,3)
 # Enable Managed Identity and required permissions for key vault and monitor
 identity=$(az functionapp identity assign -g  $rg  -n $fnName --role 749f88d5-cbae-40b8-bcfc-e573ddc772fa --scope $scope -o tsv --query "principalId")
 
-sleep 20
-
 #Set kv permissions for KV references
 az keyvault set-policy --name $kvName --object-id $identity --secret-permissions get -g $rg
+
+for subbie in $subs
+   do
+   az account set --subscription $subbie
+   echo "az functionapp identity assign -g  $rg  -n $fnName --role 749f88d5-cbae-40b8-bcfc-e573ddc772fa --scope "/subscriptions/${subbie}""
+   done
+
+
+sleep 20
 
 sleep 20
 

@@ -1,1 +1,1 @@
-{"bindings":[{"type":"eventHubTrigger","name":"eventHubMessages","direction":"in","eventHubName":"hub-autodiag-17276","connection":"AzureEventHubConnectionString","cardinality":"many","consumerGroup":"$Default"}]}
+{"bindings":[{"type":"eventHubTrigger","name":"eventHubMessages","direction":"in","eventHubName":"hub-autodiag-18850","connection":"AzureEventHubConnectionString","cardinality":"many","consumerGroup":"$Default"}]}
