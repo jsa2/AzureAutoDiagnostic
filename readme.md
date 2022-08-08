@@ -91,7 +91,13 @@ az group create -n $rg \
 -l $location \
 --tags="svc=autoDiag"
 
+
+# use existing wsID
 wsid="/subscriptions/3539c2a2-cd25-48c6-b295-14e59334ef1c/resourcegroups/rg-laws/providers/microsoft.operationalinsights/workspaces/hublaws"
+
+#Create new WS
+wsid=$(az monitor log-analytics workspace create --location $location -g $rg  -
+n laws${autodg}1 -o tsv --query "id")
 
 # Create storageAcc Account 
 az storage account create -n $storageAcc  -g $rg --kind storageV2 -l $location -t Account --sku Standard_LRS
