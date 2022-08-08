@@ -207,12 +207,14 @@ rm deploy.zip
 
 
 # Create Resource Group
-rnd=$(az group create -n "testRg-$RANDOM" -l $location --tags="svc=autoDiag" -o "tsv" --query "id")
+rnd=$(az group create -n "testRg-$RANDOM" -l $location --tags="svc=autoDiag" -o "tsv" --query "name")
 
 #Create rnd resources to confirm the diagnostic setting
 az network public-ip create --location $location -g $rnd  -n pip-$RANDOM
 az network lb create --location $location -g $rnd  -n lb-$rnd
 az keyvault create --location $location -g $rnd  -n ${kvName}1
+
+az group delete -n $rnd
 ```
 
 ## Confirming the solution works
