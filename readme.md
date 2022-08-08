@@ -9,6 +9,7 @@ One of the top issues in detecting and investigation of security incidents (or s
 
 There are multiple ways to enable diagnostic logs in Azure: Built-in and recommended option is to use Azure Policy and to create individually diagnostic deployment for different resource types. 
 
+**Alternative for security research**
 This solution removes the requirement for creating individual policies per resource type. As long as the resource type supports the [Diagnostic settings](https://docs.microsoft.com/en-us/rest/api/monitor/diagnostic-settings/create-or-update) API in Azure Resource Manager.
 
 **Solution image**
