@@ -167,9 +167,10 @@ az keyvault set-policy --name $kvName --object-id $identity --secret-permissions
 for subbie in $subs
    do
    az account set --subscription $subbie
-   echo "az functionapp identity assign -g  $rg  -n $fnName --role 749f88d5-cbae-40b8-bcfc-e573ddc772fa --scope "/subscriptions/${subbie}""
+   az role assignment create --assignee $identity --role 749f88d5-cbae-40b8-bcfc-e573ddc772fa --scope "/subscriptions/${subbie}"
    done
 
+az account set --subscription $sub
 
 sleep 20
 
@@ -204,10 +205,14 @@ done
 #
 rm deploy.zip
 
+
+# Create Resource Group
+rnd=$(az group create -n "testRg-$RANDOM" -l $location --tags="svc=autoDiag" -o "tsv" --query "id")
+
 #Create rnd resources to confirm the diagnostic setting
-az network public-ip create --location $location -g $rg  -n pip-$RANDOM
-az network lb create --location $location -g $rg  -n lb-$rnd
-az keyvault create --location $location -g $rg  -n ${kvName}1
+az network public-ip create --location $location -g $rnd  -n pip-$RANDOM
+az network lb create --location $location -g $rnd  -n lb-$rnd
+az keyvault create --location $location -g $rnd  -n ${kvName}1
 ```
 
 ## Confirming the solution works
