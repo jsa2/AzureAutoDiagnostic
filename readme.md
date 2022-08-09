@@ -2,7 +2,7 @@
 
 ## Disclaimer
 Read [License](#license) before proceeding
-- Do not use this solution in any environment that has sensitive or valuable data. This is a technology demo meant for testing environments. 
+- Do not use this solution in any environment that has sensitive or valuable data. This is a tool meant for security research. 
 
 ## Solution description
 One of the top issues in detecting and investigation of security incidents (or suspicion of incident) is the fact that logs are often not simply enabled. 
