@@ -11,7 +11,7 @@ There are multiple ways to enable diagnostic logs in Azure: Built-in and recomme
 
 **Alternative for security research**
 
-✅ This solution removes the requirement for creating individual Azure olicies per resource type. As long as the resource type supports the [Diagnostic settings](https://docs.microsoft.com/en-us/rest/api/monitor/diagnostic-settings/create-or-update) API in Azure Resource Manager. The goal of this tool is to gather diagnostic data of resources for security research with fire & forget mechanism.
+✅ This solution removes the requirement for creating individual Azure policies per resource type. As long as the resource type supports the [Diagnostic settings](https://docs.microsoft.com/en-us/rest/api/monitor/diagnostic-settings/create-or-update) API in Azure Resource Manager. The goal of this tool is to gather diagnostic data of resources for security research with fire & forget mechanism.
 
 **Solution image**
 
